@@ -1,0 +1,2193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>💌 A Little Something For You</title>
+
+<!-- FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=DM+Serif+Display&family=Poppins:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+>
+
+<style>
+
+/* =========================================================
+   🎨 BACKGROUND COLOURS
+   ========================================================= */
+
+:root {
+
+    --purple-dark: #160624;
+    --purple-mid: #1f1627;
+    --purple-light: #261f2b;
+
+    --text: #fff8ff;
+    --soft-text: #d8cbdc;
+
+    --pink: #f3b6d2;
+    --pink-light: #ffd9e9;
+
+}
+
+
+/* =========================================================
+   🌙 GENERAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    min-height: 100vh;
+
+    background:
+
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(170,100,180,0.12),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 80% 70%,
+            rgba(230,130,190,0.08),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            135deg,
+            var(--purple-dark),
+            var(--purple-mid),
+            var(--purple-light)
+        );
+
+    background-attachment: fixed;
+
+    color: var(--text);
+
+    font-family: 'Poppins', sans-serif;
+
+    overflow-x: hidden;
+}
+
+
+/* =========================================================
+   ✨ LOADING SCREEN
+   ========================================================= */
+
+#loading {
+
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--purple-dark);
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+}
+
+#loading.hide {
+
+    opacity: 0;
+    visibility: hidden;
+
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.loading-heart {
+
+    font-size: 45px;
+
+    animation:
+        heartbeat 1.5s infinite ease-in-out;
+}
+
+.loading-text {
+
+    margin-top: 20px;
+
+    font-family: 'Caveat', cursive;
+
+    font-size: 30px;
+
+    color: var(--pink-light);
+}
+
+.loading-dots {
+
+    margin-top: 10px;
+
+    letter-spacing: 5px;
+
+    color: var(--pink);
+}
+
+@keyframes heartbeat {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+}
+
+
+/* =========================================================
+   ✨ FLOATING HEARTS
+   ========================================================= */
+
+.floating {
+
+    position: fixed;
+
+    pointer-events: none;
+
+    opacity: 0.35;
+
+    z-index: 0;
+
+    animation:
+        floatAround linear infinite;
+}
+
+@keyframes floatAround {
+
+    0% {
+
+        transform:
+            translateY(100vh)
+            rotate(0deg);
+
+        opacity: 0;
+
+    }
+
+    15% {
+        opacity: 0.35;
+    }
+
+    85% {
+        opacity: 0.35;
+    }
+
+    100% {
+
+        transform:
+            translateY(-10vh)
+            rotate(180deg);
+
+        opacity: 0;
+
+    }
+
+}
+
+
+/* =========================================================
+   💌 ENVELOPE SCREEN
+   ========================================================= */
+
+#envelope-screen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 5000;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background:
+
+        radial-gradient(
+            circle,
+            rgba(255,180,220,0.10),
+            transparent 45%
+        ),
+
+        var(--purple-dark);
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+}
+
+#envelope-screen.opened {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+}
+
+.envelope-title {
+
+    font-family: 'Caveat', cursive;
+
+    font-size: 42px;
+
+    color: var(--pink-light);
+
+    margin-bottom: 35px;
+}
+
+.envelope {
+
+    position: relative;
+
+    width: 280px;
+    height: 190px;
+
+    cursor: pointer;
+
+    perspective: 1000px;
+
+    filter:
+        drop-shadow(
+            0 20px 30px rgba(0,0,0,0.4)
+        );
+
+    transition:
+        transform 0.3s ease;
+}
+
+.envelope:hover {
+
+    transform:
+        scale(1.05)
+        rotate(-1deg);
+}
+
+.envelope-body {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: #e9b8cd;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+}
+
+.envelope-body::before,
+.envelope-body::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: 0;
+
+    width: 0;
+
+    height: 0;
+
+    border-style: solid;
+}
+
+.envelope-body::before {
+
+    left: 0;
+
+    border-width:
+        0 140px 100px 0;
+
+    border-color:
+        transparent
+        #d49ab5
+        transparent
+        transparent;
+}
+
+.envelope-body::after {
+
+    right: 0;
+
+    border-width:
+        0 0 100px 140px;
+
+    border-color:
+        transparent
+        transparent
+        #d49ab5
+        transparent;
+}
+
+.envelope-flap {
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left:
+        140px solid transparent;
+
+    border-right:
+        140px solid transparent;
+
+    border-top:
+        105px solid #f2c9d9;
+
+    transform-origin: top;
+
+    transition:
+        transform 1s ease;
+
+    z-index: 3;
+}
+
+.envelope.open .envelope-flap {
+
+    transform:
+        rotateX(180deg);
+}
+
+.envelope-letter {
+
+    position: absolute;
+
+    width: 220px;
+    height: 140px;
+
+    left: 30px;
+    top: 30px;
+
+    background: #fff8fb;
+
+    border-radius: 5px;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #6d3c59;
+
+    font-family: 'Caveat', cursive;
+
+    font-size: 25px;
+
+    transition:
+        transform 1s ease;
+}
+
+.envelope.open .envelope-letter {
+
+    transform:
+        translateY(-100px);
+}
+
+
+/* =========================================================
+   🌙 MAIN WEBSITE
+   ========================================================= */
+
+#website {
+
+    display: none;
+
+    position: relative;
+
+    z-index: 1;
+}
+
+#website.show {
+
+    display: block;
+}
+
+
+/* =========================================================
+   💖 HERO
+   ========================================================= */
+
+.hero {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 40px 20px;
+}
+
+.hero-small {
+
+    font-family: 'Caveat', cursive;
+
+    font-size: 25px;
+
+    color: var(--pink);
+
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    font-size:
+        clamp(55px, 10vw, 110px);
+
+    line-height: 0.95;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #fff,
+            #f3b6d2,
+            #fff
+        );
+
+    -webkit-background-clip: text;
+
+    color: transparent;
+}
+
+.hero p {
+
+    max-width: 600px;
+
+    margin-top: 30px;
+
+    color: var(--soft-text);
+
+    line-height: 1.8;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   📖 SECTIONS
+   ========================================================= */
+
+.section {
+
+    max-width: 1050px;
+
+    margin: auto;
+
+    padding:
+        100px 25px;
+}
+
+.section-title {
+
+    text-align: center;
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    font-size:
+        clamp(35px, 6vw, 60px);
+
+    margin-bottom: 20px;
+}
+
+.section-subtitle {
+
+    text-align: center;
+
+    color: var(--soft-text);
+
+    margin-bottom: 60px;
+}
+
+
+/* =========================================================
+   💌 LETTER
+   ========================================================= */
+
+.letter {
+
+    max-width: 750px;
+
+    margin: auto;
+
+    padding: 50px;
+
+    background:
+
+        repeating-linear-gradient(
+            transparent,
+            transparent 31px,
+            rgba(150,100,130,0.15) 32px
+        ),
+
+        #fff8fb;
+
+    color: #4c3042;
+
+    border-radius: 5px;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,0.35);
+
+    transform:
+        rotate(-1deg);
+}
+
+.letter h3 {
+
+    font-family:
+        'Caveat',
+        cursive;
+
+    font-size: 35px;
+
+    margin-bottom: 25px;
+}
+
+.letter p {
+
+    font-family:
+        'Caveat',
+        cursive;
+
+    font-size: 23px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   📸 MEMORY GRID
+   ========================================================= */
+
+.memory-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(280px, 1fr)
+        );
+
+    gap: 50px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   📸 MEMORY CARD
+   ========================================================= */
+
+.memory {
+
+    position: relative;
+
+    opacity: 0;
+
+    transform:
+        translateY(50px)
+        rotate(var(--rotation));
+
+    transition:
+        opacity 0.9s ease,
+        transform 0.9s ease;
+}
+
+.memory.visible {
+
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        rotate(var(--rotation));
+}
+
+
+/* =========================================================
+   📸 PHOTO CARD
+   ========================================================= */
+
+.photo-card {
+
+    padding:
+        15px 15px 25px;
+
+    background: #fffafc;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,0.35);
+
+    color: #46303d;
+}
+
+.photo-card img {
+
+    width: 100%;
+
+    display: block;
+
+    aspect-ratio: 4 / 3;
+
+    object-fit: cover;
+}
+
+
+/* =========================================================
+   🎀 WASHI TAPE
+   ========================================================= */
+
+.washi {
+
+    position: absolute;
+
+    width: 95px;
+
+    height: 25px;
+
+    background:
+        rgba(238,185,210,0.75);
+
+    top: -13px;
+
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        rotate(-2deg);
+
+    z-index: 5;
+}
+
+
+/* =========================================================
+   📝 PHOTO NOTE
+   ========================================================= */
+
+.note {
+
+    margin-top: 18px;
+
+    padding: 15px;
+
+    background:
+
+        repeating-linear-gradient(
+            transparent,
+            transparent 27px,
+            rgba(100,80,100,0.15) 28px
+        );
+
+    font-family:
+        'Caveat',
+        cursive;
+
+    font-size: 23px;
+
+    line-height: 1.4;
+
+    color: #4d3443;
+}
+
+
+/* =========================================================
+   🎥 VIDEO CARD
+   ========================================================= */
+
+.video-card {
+
+    background: #19151b;
+
+    padding: 12px;
+
+    box-shadow:
+        0 20px 45px rgba(0,0,0,0.5);
+
+    position: relative;
+}
+
+.video-card::before {
+
+    content: "REC  ●";
+
+    position: absolute;
+
+    top: 20px;
+
+    left: 20px;
+
+    z-index: 5;
+
+    font-family: monospace;
+
+    font-size: 12px;
+
+    color: white;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 5px black;
+}
+
+.video-card video {
+
+    width: 100%;
+
+    display: block;
+
+    aspect-ratio: 16 / 9;
+
+    object-fit: cover;
+}
+
+.video-note {
+
+    background: #fff8fb;
+
+    padding: 15px;
+
+    margin-top: 10px;
+
+    color: #4d3443;
+
+    font-family:
+        'Caveat',
+        cursive;
+
+    font-size: 22px;
+}
+
+
+/* =========================================================
+   🎁 SURPRISE
+   ========================================================= */
+
+.surprise {
+
+    text-align: center;
+
+    padding:
+        130px 20px;
+}
+
+.surprise-button {
+
+    border: none;
+
+    padding:
+        18px 35px;
+
+    border-radius: 50px;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #f3b6d2,
+            #c88bad
+        );
+
+    color: #351a2d;
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-weight: 600;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.3);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.surprise-button:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,0.4);
+}
+
+
+/* =========================================================
+   🎙️ VOICE NOTE
+   ========================================================= */
+
+#voice-note {
+
+    display: none;
+
+    max-width: 600px;
+
+    margin: 60px auto;
+
+    padding: 35px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    border:
+        1px solid rgba(255,255,255,0.12);
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    backdrop-filter: blur(10px);
+
+    animation:
+        voiceAppear 1s ease;
+}
+
+#voice-note.show {
+
+    display: block;
+}
+
+.voice-icon {
+
+    font-size: 55px;
+
+    margin-bottom: 20px;
+}
+
+#voice-note h3 {
+
+    font-family:
+        'Caveat',
+        cursive;
+
+    font-size: 38px;
+
+    color: var(--pink-light);
+
+    margin-bottom: 20px;
+}
+
+#voice-note audio {
+
+    width: 100%;
+
+    margin-top: 15px;
+}
+
+@keyframes voiceAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(30px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   🎂 ENDING
+   ========================================================= */
+
+.ending {
+
+    min-height: 70vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+    padding: 80px 20px;
+}
+
+.ending-photo {
+
+    width: min(500px, 85%);
+
+    max-height: 550px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+
+    margin-bottom: 35px;
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,0.4);
+
+    transform:
+        rotate(-2deg);
+}
+
+.ending h2 {
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    font-size:
+        clamp(45px, 8vw, 90px);
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #fff,
+            var(--pink),
+            #fff
+        );
+
+    -webkit-background-clip: text;
+
+    color: transparent;
+}
+
+.ending p {
+
+    margin-top: 25px;
+
+    max-width: 600px;
+
+    line-height: 1.8;
+
+    color: var(--soft-text);
+}
+
+
+/* =========================================================
+   📱 MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .envelope {
+
+        transform:
+            scale(0.85);
+    }
+
+    .letter {
+
+        padding:
+            30px 25px;
+    }
+
+    .section {
+
+        padding:
+            70px 18px;
+    }
+
+    .memory-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 45px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     🎵 BACKGROUND MUSIC
+
+     Put song.mp3 inside:
+
+     audio/song.mp3
+
+     It starts when the envelope is clicked.
+     ========================================================= -->
+
+<audio
+    id="backgroundMusic"
+    loop
+    preload="auto"
+>
+
+    <source
+        src="audio/song.mp3"
+        type="audio/mpeg"
+    >
+
+</audio>
+
+
+<!-- =========================================================
+     ✨ LOADING SCREEN
+     ========================================================= -->
+
+<div id="loading">
+
+    <div class="loading-content">
+
+        <div class="loading-heart">
+            💌
+        </div>
+
+        <div class="loading-text">
+            Gathering our memories…
+        </div>
+
+        <div class="loading-dots">
+            · · ·
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     💌 ENVELOPE
+     ========================================================= -->
+
+<div id="envelope-screen">
+
+    <div class="envelope-title">
+        For you, with all my love ♡
+    </div>
+
+    <div
+        class="envelope"
+        id="envelope"
+        onclick="openEnvelope()"
+    >
+
+        <div class="envelope-letter">
+           Meant just for you ♡
+        </div>
+
+        <div class="envelope-body"></div>
+
+        <div class="envelope-flap"></div>
+
+    </div>
+
+    <p
+        style="
+        margin-top:30px;
+        color:#cdb8ca;
+        font-size:14px;
+        "
+    >
+        click the envelope ♡
+    </p>
+
+</div>
+
+
+<!-- =========================================================
+     ✨ FLOATING HEARTS
+     ========================================================= -->
+
+<div
+    class="floating"
+    style="left:5%; animation-duration:18s;"
+>
+    ♡
+</div>
+
+<div
+    class="floating"
+    style="left:15%; animation-duration:23s;"
+>
+    ✦
+</div>
+
+<div
+    class="floating"
+    style="left:30%; animation-duration:20s;"
+>
+    ♡
+</div>
+
+<div
+    class="floating"
+    style="left:45%; animation-duration:26s;"
+>
+    ✧
+</div>
+
+<div
+    class="floating"
+    style="left:60%; animation-duration:19s;"
+>
+    ♡
+</div>
+
+<div
+    class="floating"
+    style="left:75%; animation-duration:24s;"
+>
+    ✦
+</div>
+
+<div
+    class="floating"
+    style="left:90%; animation-duration:21s;"
+>
+    ♡
+</div>
+
+
+<!-- =========================================================
+     🌙 MAIN WEBSITE
+     ========================================================= -->
+
+<main id="website">
+
+
+<!-- =========================================================
+     💖 WELCOME
+     ========================================================= -->
+
+<section class="hero">
+
+    <div class="hero-small">
+        to someone very special ♡
+    </div>
+
+    <h1>
+        Happy Birthday
+    </h1>
+
+    <p>
+
+        I made this little corner of the internet
+        just for you — filled with memories,
+        moments, and a whole lot of love.
+        I do hope ke tumhe ye accha lagega
+        I love you ♡
+
+    </p>
+
+</section>
+
+
+<!-- =========================================================
+     💌 MESSAGE FOR YOU
+     ========================================================= -->
+
+<section class="section">
+
+    <h2 class="section-title">
+        A Message For You
+    </h2>
+
+    <p class="section-subtitle">
+
+        before we look through everything cuz aur bhi bohot he
+        be patient ⋆˙⟡
+
+    </p>
+
+    <div class="letter">
+
+        <h3>
+            To my dearest Mimi ♡
+        </h3>
+
+        <p>
+
+            Happy birthday ♡
+
+            <br><br>
+
+            I honestly don’t know how to put into words how much
+            you mean to me, but I hope you know that you’ve become
+            someone incredibly special to me. Somewhere along the
+            way, my feelings for you became so much more than just
+            friends and i actually started liking you for some
+            reason ( ˶°ㅁ°) !! I love talking to you, being around
+            you, hearing about your day, and even the smallest
+            things about you somehow make me smile.
+
+            <br><br>
+
+            I care about you so much, and I genuinely want to be
+            there for you through the good days, the bad days,
+            and all the random moments in between. I’m probably
+            going to be annoyingly clingy sometimes because
+            honestly, I just really like having you around and
+            I never seem to get enough of you ❀
+
+            <br><br>
+
+            I hope this birthday reminds you of how loved,
+            appreciated, and special you are, because you deserve
+            nothing less. I hope this new year of your life brings
+            you everything you wish for, and selfishly, I hope
+            I get to be part of it and make even more memories
+            with you.
+
+            <br><br>
+
+            Thank you for being you, and for somehow becoming such
+            a big part of my heart. Happy birthday, handsome.
+            I love you more than I probably should admit…
+            but I guess now you know ❀ ♡
+
+            <br><br>
+
+            With love,
+
+            <br>
+
+            your vivi ♡
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     📸 ALL 66 PHOTOS
+     
+     ⭐ YOU ONLY EDIT THE NOTES IN THE SCRIPT
+     AT THE VERY BOTTOM OF THIS FILE.
+     ========================================================= -->
+
+<section class="section">
+
+    <h2 class="section-title">
+        Our Memories ♡
+    </h2>
+
+    <p class="section-subtitle">
+        66 little pieces of us ⋆｡°✩
+    </p>
+
+    <div
+        class="memory-grid"
+        id="photoGallery"
+    ></div>
+
+</section>
+
+
+<!-- =========================================================
+     🎥 ALL 3 VIDEOS
+     
+     ⭐ YOU ONLY EDIT THE VIDEO NOTES IN THE
+     SCRIPT AT THE VERY BOTTOM.
+     ========================================================= -->
+
+<section class="section">
+
+    <h2 class="section-title">
+        Little Moments 🎥
+    </h2>
+
+    <p class="section-subtitle">
+        memories that deserve to move ♡
+    </p>
+
+    <div
+        class="memory-grid"
+        id="videoGallery"
+    ></div>
+
+</section>
+
+
+<!-- =========================================================
+     💌 LOVE LETTER
+     ========================================================= -->
+
+<section class="section">
+
+    <h2 class="section-title">
+        A Little Letter
+    </h2>
+
+    <div class="letter">
+
+        <h3>
+            To my favourite person ♡
+        </h3>
+
+        <p>
+
+            Happy Birthday Love 🤍
+
+            <br><br>
+
+            Happy birthday to the person who somehow became one
+            of the most precious parts of my life. I don't know
+            exactly when my feelings for you changed, but somewhere
+            along the way, I fell for you — completely and genuinely. 🎀♡
+
+            <br><br>
+
+            I love the way you make me smile without even trying,
+            the way I can talk to you for hours and still want more,
+            and all the little things about you that you probably
+            don't even realise I notice.
+
+            <br><br>
+
+            Being around you makes ordinary moments feel special,
+            and honestly, I never want to stop making memories
+            with you. ⋆｡°✩
+
+            <br><br>
+
+            I care about you more than I can put into words.
+            I want to be there for you when you're happy,
+            when you're struggling, and for every little moment
+            in between.
+
+            <br><br>
+
+            And yes, I'll probably always be a little clingy
+            because I simply love having you around way too much
+            ⊹ ࣪ ˖
+
+            <br><br>
+
+            I hope this birthday reminds you just how loved
+            and special you are. You deserve the world,
+            and if I could, I'd give you every beautiful thing
+            in it ୨୧
+
+            <br><br>
+            Basically mujhe aur videos lagani thi but idk why me woh pc pe send nahi kar paari thi like               chal nahi rahi thi so i ended up not putting it. tora sa sad he but yeahh
+
+            <br><br>
+
+            Happy birthday, my love. I'm so lucky to have you,
+            and I hope I get to keep you for a very, very long time.
+            ₊˚⊹
+
+            <br><br>
+
+            Your personal sweetheart — Vivi ♡
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     🎁 SURPRISE
+     ========================================================= -->
+
+<section class="surprise">
+
+    <h2 class="section-title">
+        One Last Thing…
+    </h2>
+
+    <p
+        style="
+        color:#cdb8ca;
+        margin-bottom:35px;
+        "
+    >
+        I saved something for the very end.
+    </p>
+
+    <button
+        class="surprise-button"
+        onclick="showVoiceNote()"
+    >
+       Oh, and one more thing ୨୧
+
+    </button>
+
+
+    <!-- =====================================================
+         🎙️ FINAL VOICE NOTE
+
+         Put your recording here:
+
+         audio/final-message.m4a
+         ===================================================== -->
+
+    <div id="voice-note">
+
+        <div class="voice-icon">
+            🎙️
+        </div>
+
+        <h3>
+            A  little  note ⋆｡°✩
+        </h3>
+
+        <audio controls>
+
+            <source
+                src="audio/final-message.m4a"
+                type="audio/mp4"
+            >
+
+            Your browser does not support audio.
+
+        </audio>
+
+        <div class="note">
+
+            I hope you know how loved you are.
+            Happy birthday ♡
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     🎂 FINAL ENDING
+     ========================================================= -->
+
+<section class="ending">
+
+    <img
+        src="images/us.jpg"
+        class="ending-photo"
+        alt="Us ♡"
+    >
+
+    <h2>
+        Happy Birthday ♡
+    </h2>
+
+    <p>
+
+        Here's to another year of memories,
+        laughter, chaos, and everything in between.
+
+        <br><br>
+
+        I love you endlessly. ♡
+
+    </p>
+
+</section>
+
+
+</main>
+
+
+<script>
+
+/* =========================================================
+   ✨ LOADING SCREEN
+   ========================================================= */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        setTimeout(
+            function() {
+
+                document
+                    .getElementById("loading")
+                    .classList
+                    .add("hide");
+
+            },
+            1800
+        );
+
+    }
+);
+
+
+/* =========================================================
+   💌 OPEN ENVELOPE + START MUSIC
+   ========================================================= */
+
+function openEnvelope() {
+
+    const envelope =
+        document.getElementById("envelope");
+
+    const screen =
+        document.getElementById("envelope-screen");
+
+    const website =
+        document.getElementById("website");
+
+    const music =
+        document.getElementById("backgroundMusic");
+
+
+    envelope.classList.add("open");
+
+
+    /* Start background music */
+
+    music.volume = 0.35;
+
+    music.play().catch(
+        function(error) {
+
+            console.log(
+                "Music could not start:",
+                error
+            );
+
+        }
+    );
+
+
+    /* Open website */
+
+    setTimeout(
+        function() {
+
+            screen.classList.add("opened");
+
+            website.classList.add("show");
+
+            document.body.style.overflowY = "auto";
+
+            window.scrollTo(0, 0);
+
+        },
+        1000
+    );
+
+}
+
+
+/* =========================================================
+   📸 PHOTO NOTES
+   =========================================================
+
+   ⭐⭐ THIS IS ONE OF THE ONLY PLACES
+   YOU NEED TO EDIT. ⭐⭐
+
+   NOTE 1 = PHOTO 1
+   NOTE 2 = PHOTO 2
+   ...
+   NOTE 66 = PHOTO 66
+
+   Just replace the words inside the quotation marks.
+   ========================================================= */
+
+const photoNotes = [
+
+    /* PHOTO 1 */
+ "ye tumne kiya tha and that too starting me ykyk ",
+
+    /* PHOTO 2 */
+    "ye wala bhi i js know hum bas he acche sath satn trust",
+
+    /* PHOTO 3 */
+    "ye tha mere liye hamara first whatsapp bg heh",
+
+    /* PHOTO 4 */
+    "yk back then mujhe mashuq ka matlab nahi pata tha but now ik ꒰ᐢ. .ᐢ꒱",
+
+    /* PHOTO 5 */
+    "last year sep ykyk",
+
+    /* PHOTO 6 */
+    "ye bhi last year mera birthday wala ye dono",
+
+    /* PHOTO 7 */
+    "don't mind it iska baaki he mere pe but ykyk",
+
+    /* PHOTO 8 */
+    "mene bola tha ye lagane ko maybe you could put it on again yk ₍ᐢ..ᐢ₎♡ ",
+
+    /* PHOTO 9 */
+    "iska bhi baaki he merepe and like i think ye tha hamara last matching pfp",
+
+    /* PHOTO 10 */
+    "roblox wale bohot saare he yk",
+
+    /* PHOTO 11 */
+    "LOL CHOTE LOG MINI MINI PACKETS",
+
+    /* PHOTO 12 */
+    "ye tumne bheja tha",
+
+    /* PHOTO 13 */
+    "ye wala tumne li thi and woh gc me send karne but yk its cute",
+
+    /* PHOTO 14 */
+    "for the first time mujhe kisi ke sath 100% mila and thats with you baaki jitne bhi 100 aaye the pehle sab ke sab bots ke sath tha yk",
+
+    /* PHOTO 15 */
+    "tumne banake diya tha ye idk if you remember it tho",
+
+    /* PHOTO 16 */
+    "lol i think ye jab li thi tab mene tumne bataya tha ke mujhe ye sab leke kuch kaam he and you'll know it later but now yk",
+
+    /* PHOTO 17 */
+    "idk ye kab ki thi but ykyk",
+
+    /* PHOTO 18 */
+    "idk why i look so ugly but haa he pyaara [tora sa hi]",
+
+    /* PHOTO 19 */
+    "LOL CHOTE LOGO KA BADA BANNE KA KOSHISH",
+
+    /* PHOTO 20 */
+    "you look adorable here",
+
+    /* PHOTO 21 */
+    "iska eek video he merepe",
+
+    /* PHOTO 22 */
+    "us us",
+
+    /* PHOTO 23 */
+    "idhr se tum walk karte hue wala video he merepe cuz my ass decided to die",
+
+    /* PHOTO 24 */
+    "i love you",
+
+    /* PHOTO 25 */
+    "this one's cute",
+
+    /* PHOTO 26 */
+    "ye tab ki he jab hum teeno milke khelte the and baad me astro bhi aaya",
+
+    /* PHOTO 27 */
+    "iska 2-3 aur he merepe but yk",
+
+    /* PHOTO 28 */
+    "lol dekho kese baita he",
+
+    /* PHOTO 29 */
+    "i like this one it's cute",
+
+    /* PHOTO 30 */
+    "eesa lagra he ke class me baite he",
+
+    /* PHOTO 31 */
+    "spelling bee? eesa kuch tha",
+
+    /* PHOTO 32 */
+    "YEAH YOU'RE CHAINED WITH ME FOREVER IDC",
+
+    /* PHOTO 33 */
+    "lol you look so cute yk",
+
+    /* PHOTO 34 */
+    "I SWEAR BOHOT CUTE DIKHRE HO  TUM ♡",
+
+    /* PHOTO 35 */
+    "Valo waliiii",
+
+    /* PHOTO 36 */
+    "christmas wali ykyk",
+
+    /* PHOTO 37 */
+    "ye new year's wali ♡",
+
+    /* PHOTO 38 */
+    "VALENTINE'S DAY WALI [tum bhool gaye the ye dena btw]",
+
+    /* PHOTO 39 */
+    "i think ye tha hamara first matching ya toh ye ya woh purple ish wali",
+
+    /* PHOTO 40 */
+    "LOL CHOTE LOG HAAR JAATE HE",
+
+    /* PHOTO 41 */
+    "this one's nice",
+
+    /* PHOTO 42 */
+    "ye pata nahi kya tha but yeah",
+
+    /* PHOTO 43 */
+    "DON'T MIND BUT YE DIKH EESA RAHA HE KE TUM MUJHE BACK PE CARRY KAR RAHE HO",
+
+    /* PHOTO 44 */
+    "it's cute and flirty icl",
+
+    /* PHOTO 45 */
+    "chote log badminton khelte he",
+
+    /* PHOTO 46 */
+    "aww look at you proposing [no i'm jk]",
+
+    /* PHOTO 47 */
+    "baiting hehe",
+
+    /* PHOTO 48 */
+    "yeyeyeyeyeye",
+
+    /* PHOTO 49 */
+    "lol cute ho tum",
+
+    /* PHOTO 50 */
+    "idk ye kabki he but yeahh",
+
+    /* PHOTO 51 */
+    "i remember is time pe sensie bhi tha and you said picture li jaari he meri and tumne cheese ya eesa kuch bola tha",
+
+    /* PHOTO 52 */
+    "lol dekho kese jaara he",
+
+    /* PHOTO 53 */
+    "ye bhi tum ho valo wali saare pics me i'm playing as sage",
+
+    /* PHOTO 54 */
+    "recent waliiii i look pretty [ikr bolne ki zaroorat nahi he ik i'm pretty thank you]",
+
+    /* PHOTO 55 */
+    "door khada he ganda",
+
+    /* PHOTO 56 */
+    "this one's REALLY pretty",
+
+    /* PHOTO 57 */
+    "i thought i'll let you show off your strawhat hehe",
+
+    /* PHOTO 58 */
+    "pyaara he ye",
+
+    /* PHOTO 59 */
+    "recent waliiii ye maze ka tha",
+
+    /* PHOTO 60 */
+    "I REMEMEBER TUM HAAR GAYE THE YE WALA",
+
+    /* PHOTO 61 */
+    "when we started watching manwha?? ya uske baad wali idk",
+
+    /* PHOTO 62 */
+    "againnn valoo",
+
+    /* PHOTO 63 */
+    "manwha night",
+
+    /* PHOTO 64 */
+    "day time tha ye. it was fun",
+
+    /* PHOTO 65 */
+    "lol ye mene dhamki deke khelwa liya tha [idk kese bolte BASICALLY I MADE YOU SAY IT] ",
+
+    /* PHOTO 66 */
+    "Lol tum actually cute dikhre the us time"
+
+];
+
+
+/* =========================================================
+   📸 CREATE ALL 66 PHOTO CARDS
+   ========================================================= */
+
+const photoGallery =
+    document.getElementById("photoGallery");
+
+const rotations = [
+    "-3deg",
+    "2deg",
+    "-1deg",
+    "3deg",
+    "-2deg",
+    "1deg"
+];
+
+
+for (let i = 1; i <= 66; i++) {
+
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "memory photo-card";
+
+    card.style.setProperty(
+        "--rotation",
+        rotations[(i - 1) % rotations.length]
+    );
+
+
+    /* Create the image */
+
+    const image =
+        document.createElement("img");
+
+    image.alt =
+        `Memory ${i}`;
+
+    image.src =
+        `images/photo${i}.png`;
+
+
+    /*
+       If PNG doesn't exist,
+       try JPG.
+    */
+
+    image.onerror = function() {
+
+        if (
+            image.src.endsWith(
+                `.png`
+            )
+        ) {
+
+            image.src =
+                `images/photo${i}.jpg`;
+
+        }
+
+        else if (
+            image.src.endsWith(
+                `.jpg`
+            )
+        ) {
+
+            image.src =
+                `images/photo${i}.jpeg`;
+
+        }
+
+        else {
+
+            console.log(
+                `Could not find photo${i}`
+            );
+
+        }
+
+    };
+
+
+    /* Create note */
+
+    const note =
+        document.createElement("div");
+
+    note.className =
+        "note";
+
+    note.textContent =
+        photoNotes[i - 1];
+
+
+    /* Add everything to card */
+
+    const washi =
+        document.createElement("div");
+
+    washi.className =
+        "washi";
+
+
+    card.appendChild(washi);
+
+    card.appendChild(image);
+
+    card.appendChild(note);
+
+    photoGallery.appendChild(card);
+
+}
+
+
+/* =========================================================
+   🎥 VIDEO NOTES
+   ========================================================= */
+
+const videoNotes = [
+
+    /* VIDEO 1 */
+    "ye tum mujhe apna gameplay dikhare the and like mera glitch hora tha and i js wanted to show it to you",
+
+    /* VIDEO 2 */
+    "doors khelre the hum saare and I DIED",
+
+    /* VIDEO 3 */
+    "meri birthday waliiiiii"
+
+];
+
+
+/* =========================================================
+   🎥 CREATE ALL 3 VIDEOS
+   ========================================================= */
+
+const videoGallery =
+    document.getElementById("videoGallery");
+
+
+for (let i = 1; i <= 3; i++) {
+
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "memory video-card";
+
+    card.style.setProperty(
+        "--rotation",
+        rotations[(i - 1) % rotations.length]
+    );
+
+
+    /* Create video */
+
+    const video =
+        document.createElement("video");
+
+    video.controls = true;
+
+    video.preload = "metadata";
+
+    video.playsInline = true;
+
+
+    const source =
+        document.createElement("source");
+
+source.src =
+    `videos/video${i}.mp4`;
+
+    source.type =
+        "video/mp4";
+
+
+    video.appendChild(source);
+
+
+    /*
+       Create video note
+    */
+
+    const note =
+        document.createElement("div");
+
+    note.className =
+        "video-note";
+
+    note.textContent =
+        videoNotes[i - 1];
+
+
+    /* Add video + note */
+
+    card.appendChild(video);
+
+    card.appendChild(note);
+
+    videoGallery.appendChild(card);
+
+}
+
+/* =========================================================
+   ✨ SCROLL FADE-IN ANIMATIONS
+   ========================================================= */
+
+const memories =
+    document.querySelectorAll(".memory");
+
+
+const observer =
+    new IntersectionObserver(
+
+        function(entries) {
+
+            entries.forEach(
+                function(entry) {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target
+                            .classList
+                            .add("visible");
+
+                    }
+
+                }
+            );
+
+        },
+
+        {
+            threshold: 0.15
+        }
+
+    );
+
+
+memories.forEach(
+    function(memory) {
+
+        observer.observe(memory);
+
+    }
+);
+
+
+/* =========================================================
+   🎁 SHOW VOICE NOTE
+   ========================================================= */
+
+function showVoiceNote() {
+
+    const voice =
+        document.getElementById("voice-note");
+
+    const music =
+        document.getElementById("backgroundMusic");
+
+    const voiceMessage =
+        voice.querySelector("audio");
+
+
+    /* Show voice note */
+
+    voice.classList.add("show");
+
+
+    /* Stop background music */
+
+    music.pause();
+
+
+    /* Start voice message */
+
+    voiceMessage.currentTime = 0;
+
+    voiceMessage.play();
+
+
+    /* Scroll to voice message */
+
+    setTimeout(
+        function() {
+
+            voice.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "center"
+
+            });
+
+        },
+        100
+    );
+
+
+    /* Continue background music
+       after voice message finishes */
+
+    voiceMessage.onended =
+        function() {
+
+            music.play();
+
+        };
+
+}
+
+
+/* =========================================================
+   🎵 STOP MUSIC WHEN PAGE CLOSES
+   ========================================================= */
+
+window.addEventListener(
+    "beforeunload",
+    function() {
+
+        const music =
+            document.getElementById(
+                "backgroundMusic"
+            );
+
+        music.pause();
+
+    }
+);
+
+</script>
+
+
+</body>
+</html>
